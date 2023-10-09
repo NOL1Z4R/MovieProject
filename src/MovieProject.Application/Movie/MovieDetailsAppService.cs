@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
+using Abp.Net.Mail;
 using Abp.Runtime.Session;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +18,12 @@ namespace MovieProject.MovieDetails;
 public class MovieDetailsAppService:MovieProjectAppServiceBase
 {
     private readonly IRepository<Movie> _movieRepository;
+    private readonly IEmailSender _emailSender;
 
-    public MovieDetailsAppService(IRepository<Movie> movieRepository)
+    public MovieDetailsAppService(IRepository<Movie> movieRepository,IEmailSender emailSender)
     {
         _movieRepository = movieRepository;
+        _emailSender = emailSender;
     }
 
     [HttpGet]
@@ -33,5 +36,13 @@ public class MovieDetailsAppService:MovieProjectAppServiceBase
         var movieDtos = ObjectMapper.Map<List<ShowMovieDto>>(movies);
         
         return movieDtos;
+    }
+
+    [HttpGet]
+    public async Task<MovieDto> RecommendMovie(MovieCategoryDto movieCategoryDto)
+    {
+        var sessionId = AbpSession.GetUserId();
+        
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
+using EmptyFiles;
 using MovieProject.Authorization.Users;
 
 namespace MovieProject.Entities;
@@ -12,6 +13,7 @@ public class Movie:FullAuditedEntity
      // public long RateId { get; set; }
      public int Rating { get; set; }
      public string Description { get; set; }
+     public Category Category { get; set; }
      
      // [ForeignKey(nameof(UserId))] 
      // public User User { get; set; }
