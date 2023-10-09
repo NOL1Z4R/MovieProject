@@ -12,6 +12,7 @@ namespace MovieProject.EntityFrameworkCore
     {
         /* Define a DbSet for each entity of the application */
         public DbSet<Rate> Rates { get; set; }
+        public DbSet<Movie> Movies { get; set; }
         public MovieProjectDbContext(DbContextOptions<MovieProjectDbContext> options)
             : base(options)
         {

@@ -1,10 +1,10 @@
+using Abp.Application.Services.Dto;
+using MovieProject.Rates.Dto;
 using MovieProject.Users.Dto;
 
 namespace MovieProject.MovieDetails.Dto;
 
-public class MovieDto
+public class MovieDto:EntityDto
 {
-    public string Description { get; set; }
-    public int Rate { get; set; }
-    public UserDto User { get; set; }
+    public string Name { get; set; }
 }

@@ -40,6 +40,7 @@ public class RatesAppService: MovieProjectAppServiceBase
     [HttpGet]
     public async Task<List<RateDto>> GetAllRateMovie()
     {
+        
         var rates = _rateRepository.GetAll().Include(r=>r.User);
         var rateDtos = ObjectMapper.Map<List<RateDto>>(rates);
         return rateDtos;
