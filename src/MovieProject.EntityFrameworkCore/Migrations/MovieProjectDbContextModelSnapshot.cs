@@ -1570,6 +1570,52 @@ namespace MovieProject.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("MovieProject.Entities.Movie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Category")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Movies");
+                });
+
             modelBuilder.Entity("MovieProject.Entities.Rate", b =>
                 {
                     b.Property<int>("Id")
@@ -1602,6 +1648,9 @@ namespace MovieProject.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("MovieId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
 
@@ -1609,6 +1658,8 @@ namespace MovieProject.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
 
                     b.HasIndex("UserId");
 
@@ -1899,11 +1950,19 @@ namespace MovieProject.Migrations
 
             modelBuilder.Entity("MovieProject.Entities.Rate", b =>
                 {
+                    b.HasOne("MovieProject.Entities.Movie", "Movie")
+                        .WithMany("Rates")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MovieProject.Authorization.Users.User", "User")
                         .WithMany("Rates")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Movie");
 
                     b.Navigation("User");
                 });
@@ -2006,6 +2065,11 @@ namespace MovieProject.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
+                });
+
+            modelBuilder.Entity("MovieProject.Entities.Movie", b =>
+                {
+                    b.Navigation("Rates");
                 });
 #pragma warning restore 612, 618
         }

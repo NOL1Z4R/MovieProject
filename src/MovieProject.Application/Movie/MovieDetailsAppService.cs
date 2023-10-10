@@ -10,6 +10,7 @@ using MovieProject.Authorization.Users;
 using MovieProject.Entities;
 using MovieProject.MovieDetails.Dto;
 using MovieProject.Rates.Dto;
+using MovieProject.Users.Dto;
 
 namespace MovieProject.MovieDetails;
 
@@ -42,7 +43,7 @@ public class MovieDetailsAppService:MovieProjectAppServiceBase
     public async Task<MovieDto> RecommendMovie(MovieCategoryDto movieCategoryDto)
     {
         var sessionId = AbpSession.GetUserId();
-        
+
         return null;
     }
 }
